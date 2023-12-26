@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Animation Redirect</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Courier+Prime&display=swap">
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            background-color: rgb(0, 0, 0);
+        }
+
+        .loader {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            z-index: 1040;
+        }
+
+        .loader h1 {
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .loader h1 em {
+            font-family: 'Courier Prime', Courier, monospace;
+            font-style: normal;
+        }
+
+        .loader .c-braces {
+            letter-spacing: -8px;
+            vertical-align: middle;
+        }
+
+        /* Add a full-screen clickable overlay */
+        .overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: transparent;
+            z-index: 1050; /* Higher than the loader */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader" class="loader">
+    <h1 id="coding"></h1>
+</div>
+
+<!-- Clickable overlay to redirect -->
+<a href="main.html" class="overlay"></a>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js"></script>
+<script>
+    $(document).ready(function() {
+        new TypeIt('#coding', {
+            speed: 150,
+            startDelay: 900,
+            loop: true,
+            afterComplete: (instance) => {
+                $('.loader').fadeOut();
+            },
+        })
+            .type('<em class="c-braces" style="margin-right: 6px;">{{</em><em class="c-braces">}}</em>')
+            .pause(500)
+            .delete(2)
+            .pause(300)
+            .type('<em>CLICK HERE</em>')
+            .pause(750)
+            .delete(10)
+            .pause(750)
+            .type('<em> and Participate</em><em class="c-braces">}}</em>')
+            .pause(1500).go();
+    });
+
+    // Redirect when clicking anywhere on the page
+    $('.overlay').on('click', function() {
+        // Replace 'your-destination-page.html' with the actual destination URL
+        window.location.href = 'main.html';
+    });
+</script>
+
+</body>
+</html>
